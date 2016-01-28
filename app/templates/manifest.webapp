@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "<%= appName %>",
+  "description": "<%= appDesc %>",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "<%= devName %>",
+    "url": "<%= githubRepo %>"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

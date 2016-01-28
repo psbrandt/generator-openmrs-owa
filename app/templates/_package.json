@@ -1,0 +1,29 @@
+{
+  "name": "<%= appId %>",
+  "version": "1.0.0",
+  "description": "<%= appDesc %>",
+  "repository": {
+    "type": "git",
+    "url": "<%= githubRepo %>"
+  },
+  "dependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-zip": "^3.0.2",
+    "main-bower-files": "^2.11.1",
+    "wiredep": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "OpenMRS",
+    "Open",
+    "Web",
+    "App"
+  ],
+  "author": "<%= devName %>",
+  "license": "MPL-2.0"
+}

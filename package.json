@@ -1,0 +1,39 @@
+{
+  "name": "generator-openmrs-owa",
+  "version": "1.0.0",
+  "description": "Scaffold OpenMRS Open Web Apps.",
+  "license": "MPL-2.0",
+  "repository": "http://github.com/psbrandt/generator-openmrs-owa",
+  "author": "OpenMRS",
+  "main": "app/index.js",
+  "engines": {
+    "node": ">=4.0.0",
+    "npm": ">=2.14.2"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec --timeout 3000"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "openmrs",
+    "open",
+    "web",
+    "app",
+    "owa"
+  ],
+  "dependencies": {
+    "user-home": "^2.0.0",
+    "yeoman-generator": "^0.22.4",
+    "yosay": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "object-assign": "^4.0.1",
+    "path": "^0.12.7",
+    "yeoman-assert": "^2.1.1",
+    "yeoman-test": "^1.0.0"
+  }
+}
