@@ -250,7 +250,10 @@ module.exports = generators.Base.extend({
     scripts: function() {
       this.fs.copyTpl(
         this.templatePath('scripts/index.js'),
-        this.destinationPath('app/js' + '/' + this.appId + '.js')
+        this.destinationPath('app/js' + '/' + this.appId + '.js'),
+        {
+          appId: this.appId
+        }
       );
     },
 

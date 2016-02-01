@@ -12,6 +12,6 @@
 (function () {
   'use strict';
   document.addEventListener("DOMContentLoaded", function(event) {
-    console.log('<%= %> OpenMRS Open Web App Started.');
+    console.log('<%= appId %> OpenMRS Open Web App Started.');
   });
 }());
