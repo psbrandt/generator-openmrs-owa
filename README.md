@@ -1,6 +1,9 @@
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
-# OpenMRS Open Web App Generator [![Build Status](https://secure.travis-ci.org/psbrandt/generator-openmrs-owa.svg?branch=master)](http://travis-ci.org/psbrandt/generator-openmrs-owa)
+# OpenMRS Open Web App Generator
+
+[![Build Status](https://img.shields.io/travis/psbrandt/generator-openmrs-owa.svg?style=flat-square)](http://travis-ci.org/psbrandt/generator-openmrs-owa)
+[![Downloads](https://img.shields.io/npm/dt/generator-openmrs-owa.svg?style=flat-square)](https://www.npmjs.com/package/generator-openmrs-owa)
 
 > [Yeoman](http://yeoman.io) generator that scaffolds an [OpenMRS Open Web App](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module)
 
@@ -64,4 +67,4 @@ It's best to ask your questions on [OpenMRS talk](https://talk.openmrs.org/tags/
 
 ## License
 
-[MPL 2.0 w/ HD](http://openmrs.org/license/) © [OpenMRS Inc.](http://www.openmrs.org/)
+[MPL-2.0](http://openmrs.org/license/)
