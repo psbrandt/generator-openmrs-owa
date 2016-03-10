@@ -18,15 +18,39 @@ var gulpLoadPlugins = require('gulp-load-plugins');
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var wiredep = require('wiredep').stream;
+var gutil = require('gulp-util');
 
 var plugins = gulpLoadPlugins();
 
-var LOCAL_OWA_FOLDER = '<%= localDeployDirectory %>';
 var THIS_APP_ID = '<%= appId %>';
 
 var htmlGlob = ['app/**/*.html'];
 var resourcesGlob = ['app/**/*.{png,svg,jpg,gif}', 'app/**/*.{css,less}',
   'app/**/*.js', 'app/manifest.webapp', /* list extra resources here */ ];
+
+  var getConfig = function () {
+    var config;
+
+    try {
+      // look for config file
+      config = require('./config.json');
+    } catch (err) {
+      // create file with defaults if not found
+      config = {
+        'LOCAL_OWA_FOLDER': '<%= localDeployDirectory %>'
+      };
+
+      fs.writeFile('config.json', JSON.stringify(config), function(err) {
+      if(err) {
+          return gutil.log(err);
+      }
+        gutil.log("Default config file created");
+      });
+
+    } finally {
+      return config;
+    }
+  }
 
 gulp.task('copy-bower-packages', function() {
   try {
@@ -68,8 +92,10 @@ gulp.task('resources', function() {
 });
 
 gulp.task('deploy-local', ['build'], function() {
+  var config = getConfig();
+
   return gulp.src(['dist/**/*', '!*.zip'])
-    .pipe(gulp.dest(LOCAL_OWA_FOLDER + '/' + THIS_APP_ID));
+    .pipe(gulp.dest(config.LOCAL_OWA_FOLDER + THIS_APP_ID));
 });
 
 gulp.task('build', ['resources', 'html'], function() {

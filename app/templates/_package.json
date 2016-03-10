@@ -10,6 +10,7 @@
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-load-plugins": "^1.2.0",
+    "gulp-util": "^3.0.7",
     "gulp-zip": "^3.0.2",
     "main-bower-files": "^2.11.1",
     "wiredep": "^3.0.0"

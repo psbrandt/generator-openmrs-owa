@@ -15,6 +15,7 @@ var generators = require('yeoman-generator');
 var yosay = require('yosay');
 var os = require('os');
 var fs = require('fs');
+var path = require('path');
 
 var OPENMRS_STANDALONE_APPDATA_DIR = 'openmrs-standalone-2.3.1/appdataowa';
 var DEFAULT_SDK_SERVER = 'openmrs/openmrs-platform';
@@ -85,10 +86,6 @@ module.exports = generators.Base.extend({
       name: 'features',
       message: 'What libraries would you like to include?',
       choices: [{
-        name: 'openmrs.js',
-        value: 'includeOMRSJS',
-        checked: false
-      }, {
         name: 'jQuery',
         value: 'includeJQuery',
         checked: false
@@ -162,7 +159,7 @@ module.exports = generators.Base.extend({
           name: this.pkg.name,
           version: this.pkg.version,
           appId: this.appId,
-          localDeployDirectory: this.localDeployDirectory
+          localDeployDirectory: this.localDeployDirectory.endsWith(path.sep) ? this.localDeployDirectory : this.localDeployDirectory + path.sep
         }
       );
     },
@@ -212,18 +209,12 @@ module.exports = generators.Base.extend({
 
       bowerJson.authors.push(this.devName);
 
-      /** TODO: Create openmrs.js
-      if(this.includeOMRSJS) {
-        bowerJson.dependencies['openmrs.js'] = '1.0.0';
-      }
-      */
-
       if (this.includeJQuery) {
         bowerJson.dependencies['jquery'] = '~2.2.0';
       }
 
       if (this.includeAngular) {
-        bowerJson.dependencies['modernizr'] = '~1.4.9';
+        bowerJson.dependencies['angular'] = '~1.4.9';
       }
 
       this.fs.writeJSON('bower.json', bowerJson);
