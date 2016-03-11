@@ -110,6 +110,23 @@ module.exports = generators.Base.extend({
       }]
     }, {
       type: 'input',
+      name: 'appEntryPoint',
+      message: 'What URL will your app be served from?',
+      default: function(answers) {
+        var suffix = 'owa/' + answers.appName.toLowerCase().replace(/\s+/g, "") + '/index.html';
+
+        if(process.env.OMRS_OWA_BASE_URL) {
+          return process.env.OMRS_OWA_BASE_URL.endsWith(path.sep) ? process.env.OMRS_OWA_BASE_URL + suffix : process.env.OMRS_OWA_BASE_URL + path.sep + suffix;
+        } else {
+          if(answers.deployType == 'standalone') {
+            return 'http://localhost:8081/openmrs-standalone/' + suffix;
+          } else {
+            return 'http://localhost:8080/openmrs/' + suffix;
+          }
+        }
+      }
+    }, {
+      type: 'input',
       name: 'localDeployDirectory',
       message: 'What is the path of your local Open Web Apps directory?',
       default: process.env.OMRS_OWA_LOCAL_DIR || this.getLocalDirDefault
@@ -137,9 +154,9 @@ module.exports = generators.Base.extend({
       this.appId = answers.appName.toLowerCase().replace(/\s+/g, "");
       this.appName = answers.appName;
       this.appDesc = answers.appDesc;
-      this.includeOMRSJS = hasFeature('includeOMRSJS');
       this.includeJQuery = hasFeature('includeJQuery');
       this.includeAngular = hasFeature('includeAngular');
+      this.appEntryPoint = answers.appEntryPoint;
       this.localDeployDirectory = answers.localDeployDirectory;
       this.devName = answers.githubId;
       this.githubRep = answers.appRepo;
@@ -159,6 +176,7 @@ module.exports = generators.Base.extend({
           name: this.pkg.name,
           version: this.pkg.version,
           appId: this.appId,
+          appEntryPoint: this.appEntryPoint,
           localDeployDirectory: this.localDeployDirectory.endsWith(path.sep) ? this.localDeployDirectory : this.localDeployDirectory + path.sep
         }
       );
@@ -278,6 +296,7 @@ module.exports = generators.Base.extend({
         {
           appName: this.appName,
           appId: this.appId,
+          appEntryPoint: this.appEntryPoint,
           localDeployDirectory: this.localDeployDirectory
         }
       );
