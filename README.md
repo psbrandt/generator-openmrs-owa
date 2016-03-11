@@ -7,7 +7,7 @@
 
 > [Yeoman](http://yeoman.io) generator that scaffolds an [OpenMRS Open Web App](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module)
 
-[![OpenMRS OWA Asciicast](https://asciinema.org/a/35039.png)](https://asciinema.org/a/35039?autoplay=1)
+[![OpenMRS OWA Asciicast](screenshot.png)](https://asciinema.org/a/38974?autoplay=1)
 
 ## Features
 
@@ -17,6 +17,7 @@ The following features are currently supported:
   - [x] Production build with [Gulp](http://gulpjs.com/)
   - [x] Local deploy with Gulp
   - [x] Package management with [Bower](http://bower.io/)
+  - [x] Live reload, interaction sync and more with [Browsersync](https://www.browsersync.io/)
 
 ## Getting Started
 
@@ -26,6 +27,7 @@ The following features are currently supported:
  - Run `yo openmrs-owa` to scaffold the Open Web App
  - Run `gulp` to build distributable zip file
  - Run `gulp deploy-local` to deploy directly to your local server
+ - Run `gulp watch` for live reloading and more
 
 ## Extending
 
@@ -55,7 +57,16 @@ Any files that you add manually must be added in the `app` directory.
 The generator will read the following environment variables and use their values as the default when generating a new Open Web App:
 
 - `OMRS_OWA_LOCAL_DIR`: The directory to use for local deployment
+
+> e.g. `/Users/pascal/Downloads/openmrs-standalone-2.3.1/appdata/owa`
+
 - `OMRS_OWA_GITHUB_ID`: Your GitHub username
+
+> e.g. `psbrandt`
+
+- `OMRS_OWA_BASE_URL`: The base URL of your local OpenMRS server
+
+> e.g. `http://localhost:8082/openmrs-standalone`
 
 ## Contribute
 
