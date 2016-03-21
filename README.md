@@ -13,7 +13,7 @@
 
 The following features are currently supported:
 
-  - [x] Scaffold basic OWS folder structure and files
+  - [x] Scaffold basic OWA folder structure and files
   - [x] Production build with [Gulp](http://gulpjs.com/)
   - [x] Local deploy with Gulp
   - [x] Package management with [Bower](http://bower.io/)
