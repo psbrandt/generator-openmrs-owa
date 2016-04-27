@@ -13,24 +13,18 @@ For further documentation about OpenMRS Open Web Apps see
 
 ### Production Build
 
-You will need NodeJS 4+ installed to do this. See the install instructions
-[here](https://nodejs.org/en/download/package-manager/).
+You will need NodeJS 4+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
 
-Once you have NodeJS installed, you need to install Gulp and Bower (first time
-  only) as follows:
-````
-npm install -g gulp bower
-````
+Once you have NodeJS installed, install the dependencies (first time only):
 
-Install the dependencies (first time only):
-
+```sh
+npm install
 ```
-npm install && bower install
-```
-Build the distributable using [Gulp](http://gulpjs.com/) as follows:
 
-````
-gulp
+Build the distributable using [Webpack](https://webpack.github.io/) as follows:
+
+````sh
+npm run build:prod
 ````
 
 This will create a file called `<%= appId %>.zip` file in the `dist` directory,
@@ -41,7 +35,7 @@ which can be uploaded to the OpenMRS Open Web Apps module.
 To deploy directly to your local Open Web Apps directory, run:
 
 ````
-gulp deploy-local
+npm run build:deploy
 ````
 
 This will build and deploy the app to the `<%= localDeployDirectory %>`
@@ -70,25 +64,36 @@ will need the `APP_ENTRY_POINT` entry in your `config.json` file:
 Run Browsersync as follows:
 
 ```
-gulp watch
+npm run watch
 ```
 
 ### Extending
 
-Install [Bower](http://bower.io/) packages dependencies as follows:
+Install [npm](http://npmjs.com/) packages dependencies as follows:
 
-````
-bower install --save <package>
+````sh
+npm install --save <package>
 ````
 
-Be sure to include the following in your `html` files at the position you want
-the Bower dependencies injected:
+To use the installed package, import it as follows:
 
+````js
+//import and assign to variable
+import variableName from 'package';
 ````
-<!-- bower:js -->
-<!-- endbower -->
+
+To contain package in vendor bundle, remember to add it to vendor entry point array, eg.:
+
+````js
+entry: {
+  app : `${__dirname}/app/js/owa.js`,
+  css: `${__dirname}/app/css/owa.css`,
+  vendor : [
+    'package',
+    ...//other packages in vendor bundle
+  ]
+},
 ````
-Do the same for your Bower stylesheet dependencies, but replace `js` with `css`.
 
 Any files that you add manually must be added in the `app` directory.
 

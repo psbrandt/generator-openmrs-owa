@@ -23,10 +23,10 @@ describe('Dependencies tests', function() {
 
   it('should add selected dependecies', function() {
 
-    assert.fileContent([['bower.json', /jquery/]]);
+    assert.fileContent([['package.json', /jquery/]]);
   });
 
   it('should not add unselected dependencies', function() {
-    assert.noFileContent([['bower.json', /angular/]]);
+    assert.noFileContent([['package.json', /angular/]]);
   });
 });

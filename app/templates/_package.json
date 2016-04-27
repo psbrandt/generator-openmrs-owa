@@ -6,20 +6,40 @@
     "type": "git",
     "url": "<%= githubRepo %>"
   },
-  "dependencies": {},
+  "dependencies": {
+	<% if(includeJQuery === true) { %> "jquery": "^2.2.0" <% } %>
+	<% if(includeAngular === true) { %> "angular": "^1.5.3" <% } %>
+  },
   "devDependencies": {
+    "bestzip": "^1.1.3",
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
     "browser-sync": "^2.11.1",
+    "browser-sync-webpack-plugin": "^1.0.1",
+    "copy-webpack-plugin": "^1.1.1",
+    "css-loader": "^0.23.1",
     "del": "^2.2.0",
-    "gulp": "^3.9.0",
-    "gulp-load-plugins": "^1.2.0",
-    "gulp-util": "^3.0.7",
-    "gulp-watch": "^4.3.5",
-    "gulp-zip": "^3.0.2",
-    "main-bower-files": "^2.11.1",
-    "wiredep": "^3.0.0"
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.7.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13",
+    "yargs": "^4.3.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist && rimraf coverage*",
+    "build": "npm run clean && webpack --progress --colors --mode=production --target=web",
+    "build:dev": "npm run clean && webpack --progress --colors --mode=dev --target=web",
+    "build:prod": "npm run test && npm run build && npm run zip",
+    "build:deploy": "webpack --progress --colors --mode=deploy --target=web",
+    "watch": "webpack --progress --colors --watch --mode=deploy --target=web",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "bestzip <%= appId %>.zip dist/*"
   },
   "keywords": [
     "OpenMRS",

@@ -30,7 +30,7 @@
     "yosay": "^1.1.0"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": "^2.4.5",
     "object-assign": "^4.0.1",
     "path": "^0.12.7",
     "yeoman-assert": "^2.1.1",

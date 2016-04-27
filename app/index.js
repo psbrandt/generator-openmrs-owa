@@ -64,7 +64,7 @@ module.exports = generators.Base.extend({
       name: 'appName',
       message: 'What is your app name?',
       validate: function(input) {
-        if (input == null || input == "") {
+        if (input === null || input === "") {
           return "App name is required";
         } else {
           return true;
@@ -75,7 +75,7 @@ module.exports = generators.Base.extend({
       name: 'appDesc',
       message: 'What is your app description?',
       validate: function(input) {
-        if (input == null || input == "") {
+        if (input === null || input === "") {
           return "App description is required";
         } else {
           return true;
@@ -118,7 +118,7 @@ module.exports = generators.Base.extend({
         if(process.env.OMRS_OWA_BASE_URL) {
           return process.env.OMRS_OWA_BASE_URL.endsWith(path.sep) ? process.env.OMRS_OWA_BASE_URL + suffix : process.env.OMRS_OWA_BASE_URL + path.sep + suffix;
         } else {
-          if(answers.deployType == 'standalone') {
+          if(answers.deployType === 'standalone') {
             return 'http://localhost:8081/openmrs-standalone/' + suffix;
           } else {
             return 'http://localhost:8080/openmrs/' + suffix;
@@ -167,11 +167,13 @@ module.exports = generators.Base.extend({
   },
 
   writing: {
-    gulpfile: function() {
+    webpack: function() {
       this.fs.copyTpl(
-        this.templatePath('gulpfile.js'),
-        this.destinationPath('gulpfile.js'),
+        this.templatePath('webpack.config.js'),
+        this.destinationPath('webpack.config.js'),
         {
+          includeJQuery: this.includeJQuery,
+          includeAngular: this.includeAngular,
           date: (new Date).toISOString().split('T')[0],
           name: this.pkg.name,
           version: this.pkg.version,
@@ -200,45 +202,13 @@ module.exports = generators.Base.extend({
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
         {
+          includeJQuery: this.includeJQuery,
+          includeAngular: this.includeAngular,
           appId: 'openmrs-owa-' + this.appName.toLowerCase().replace(/\s+/g, ""),
           appDesc: this.appDesc,
           devName: this.devName,
           githubRepo: this.githubRep
         }
-      );
-    },
-
-    bower: function() {
-      var bowerJson = {
-        name: this.appName.toLowerCase().replace(/\s+/g, ""),
-        authors: [],
-        description: this.appDesc,
-        license: "MPL-2.0",
-        private: true,
-        "ignore": [
-          "**/.*",
-          "node_modules",
-          "bower_components",
-          "test",
-          "tests"
-        ],
-        dependencies: {}
-      };
-
-      bowerJson.authors.push(this.devName);
-
-      if (this.includeJQuery) {
-        bowerJson.dependencies['jquery'] = '~2.2.0';
-      }
-
-      if (this.includeAngular) {
-        bowerJson.dependencies['angular'] = '~1.4.9';
-      }
-
-      this.fs.writeJSON('bower.json', bowerJson);
-      this.fs.copy(
-        this.templatePath('bowerrc'),
-        this.destinationPath('.bowerrc')
       );
     },
 
@@ -280,11 +250,11 @@ module.exports = generators.Base.extend({
 
     images: function() {
       this.fs.copy(
-        this.templatePath('omrs-button.png'),
+        this.templatePath('img/omrs-button.png'),
         this.destinationPath('app/img/omrs-button.png')
       );
       this.fs.copy(
-        this.templatePath('openmrs-with-title-small.png'),
+        this.templatePath('img/openmrs-with-title-small.png'),
         this.destinationPath('app/img/openmrs-with-title-small.png')
       );
     },
@@ -312,7 +282,8 @@ module.exports = generators.Base.extend({
 
   install: function() {
     this.installDependencies({
-      skipInstall: this.options['skip-install']
+      skipInstall: this.options['skip-install'],
+      bower: false
     });
   },
 });
