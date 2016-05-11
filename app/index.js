@@ -204,7 +204,7 @@ module.exports = generators.Base.extend({
         {
           includeJQuery: this.includeJQuery,
           includeAngular: this.includeAngular,
-          appId: 'openmrs-owa-' + this.appName.toLowerCase().replace(/\s+/g, ""),
+          appId: this.appName.toLowerCase().replace(/\s+/g, ""),
           appDesc: this.appDesc,
           devName: this.devName,
           githubRepo: this.githubRep

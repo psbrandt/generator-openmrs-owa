@@ -23,7 +23,8 @@ const DedupePlugin = webpack.optimize.DedupePlugin;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackOnBuildPlugin = require('on-build-webpack');
 
 const nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
@@ -77,6 +78,27 @@ if (env === 'production') {
 	  plugins.push(new DedupePlugin());
 	  outputFile = `${outputFile}.min.js`;
 	  outputPath = `${__dirname}/dist/`;
+	  plugins.push(new WebpackOnBuildPlugin(function(stats){
+		  	//create zip file
+		  	var archiver = require('archiver');
+		  	var pjson = require('./package.json');
+			var output = fs.createWriteStream(THIS_APP_ID+"-v"+pjson.version+'.zip');
+			var archive = archiver('zip')
+
+			output.on('close', function () {
+			    console.log('distributable has been zipped! size: '+archive.pointer());
+			});
+
+			archive.on('error', function(err){
+			    throw err;
+			});
+
+			archive.pipe(output);
+			archive.bulk([
+			    { expand: true, cwd: 'dist/', src: ['**']}
+			]);
+			archive.finalize();
+		 }))
 	  
 } else if (env === 'deploy') {
 	  outputFile = `${outputFile}.js`;

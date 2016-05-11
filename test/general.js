@@ -38,7 +38,7 @@ describe('General tests', function() {
   });
 
   it('should generate correct dependencies', function() {
-    ['bestzip', 'babel-loader', 'browser-sync', 'css-loader',
+    ['babel-loader', 'browser-sync', 'css-loader',
       'rimraf', 'copy-webpack-plugin'].forEach(function(dep) {
       assert.fileContent([['package.json', dep]]);
     });
@@ -52,7 +52,7 @@ describe('General tests', function() {
 
   it('should generate expected npm scripts', function() {
     ['clean', 'build', 'build:prod', 'build:deploy',
-      'watch', 'test', 'zip'].forEach(function(task) {
+      'watch', 'test'].forEach(function(task) {
       assert.fileContent([['package.json', task]]);
     });
   });
