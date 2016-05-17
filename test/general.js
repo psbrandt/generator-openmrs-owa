@@ -21,7 +21,6 @@ describe('General tests', function() {
 
   it('should create the expected files', function() {
     assert.file([
-      '.bowerrc',
       '.gitignore',
       'app/css/omrsowa.css',
       'app/img',
@@ -31,8 +30,7 @@ describe('General tests', function() {
       'app/js',
       'app/js/omrsowa.js',
       'app/manifest.webapp',
-      'bower.json',
-      'gulpfile.js',
+      'webpack.config.js',
       'LICENSE',
       'package.json',
       'README.md'
@@ -40,22 +38,22 @@ describe('General tests', function() {
   });
 
   it('should generate correct dependencies', function() {
-    ['del', 'gulp', 'gulp-load-plugins', 'gulp-zip',
-      'main-bower-files', 'wiredep'].forEach(function(dep) {
+    ['babel-loader', 'browser-sync', 'css-loader',
+      'rimraf', 'copy-webpack-plugin'].forEach(function(dep) {
       assert.fileContent([['package.json', dep]]);
     });
   });
 
   it('should correctly populate author', function() {
-    ['bower.json', 'package.json'].forEach(function(fileName) {
+    ['package.json'].forEach(function(fileName) {
       assert.fileContent([[fileName, /omrsuser/]]);
     });
   });
 
-  it('should generate expected gulp tasks', function() {
-    ['copy-bower-packages', 'html', 'resources', 'deploy-local',
-      'build', 'clean', 'default'].forEach(function(task) {
-      assert.fileContent([['gulpfile.js', task]]);
+  it('should generate expected npm scripts', function() {
+    ['clean', 'build', 'build:prod', 'build:deploy',
+      'watch', 'test'].forEach(function(task) {
+      assert.fileContent([['package.json', task]]);
     });
   });
 });

@@ -14,9 +14,9 @@
 The following features are currently supported:
 
   - [x] Scaffold basic OWA folder structure and files
-  - [x] Production build with [Gulp](http://gulpjs.com/)
-  - [x] Local deploy with Gulp
-  - [x] Package management with [Bower](http://bower.io/)
+  - [x] Production build with [Webpack](https://webpack.github.io/)
+  - [x] Local deploy with Webpack
+  - [x] Package management with [npm](http://npmjs.com/)
   - [x] Live reload, interaction sync and more with [Browsersync](https://www.browsersync.io/)
 
 ## Getting Started
@@ -25,32 +25,44 @@ The following features are currently supported:
  - Install the generator: `npm install --global generator-openmrs-owa`
  - Create directory for your app: `mkdir openmrs-owa-myapp && cd $_`
  - Run `yo openmrs-owa` to scaffold the Open Web App
- - Run `gulp` to build distributable zip file
- - Run `gulp deploy-local` to deploy directly to your local server
- - Run `gulp watch` for live reloading and more
+ - Run `npm run build:prod` to build distributable zip file
+ - Run `npm run build:deploy` to deploy directly to your local server
+ - Run `npm run watch` for live reloading and more
 
 ## Extending
 
-Install Bower packages dependencies as follows:
+Install [npm](http://npmjs.com/) packages dependencies as follows:
 
-````
-bower install --save <package>
+````sh
+npm install --save <package>
 ````
 
-Be sure to include the following in your `html` files at the position you want the Bower dependencies injected:
+To use the installed package, import it as follows:
 
+````js
+//import and assign to variable
+import variableName from 'package';
 ````
-<!-- bower:js -->
-<!-- endbower -->
+
+To contain package in vendor bundle, remember to add it to vendor entry point array, eg.:
+
+````js
+entry: {
+  app : `${__dirname}/app/js/owa.js`,
+  css: `${__dirname}/app/css/owa.css`,
+  vendor : [
+    'package',
+    ...//other packages in vendor bundle
+  ]
+},
 ````
-Do the same for your Bower stylesheet dependencies, but replace `js` with `css`.
 
 Any files that you add manually must be added in the `app` directory.
 
 ## Options
 
  - `--skip-welcome-message` Skips Yeoman's greeting before displaying options.
- - `--skip-install` Skips automatically running `bower` and `npm`.
+ - `--skip-install` Skips automatically running `npm install`.
 
 ## Environment Variables
 
