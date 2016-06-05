@@ -19,12 +19,12 @@ module.exports = {
   run: function (options, prompts, done) {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions(assign({
-        'skip-install': true,
+        'skip-install': true
       }, options))
       .withPrompts(assign({
         'appName': 'omrsowa',
         'appDesc': 'omrsdesc',
-        'features': [],
+        'features': ['includeAngular'],
         'deployType': 'standalone',
         'githubId': 'omrsuser',
         'appRepo': 'https://github.com/omrsuser/openmrs-ows-omrsowa'

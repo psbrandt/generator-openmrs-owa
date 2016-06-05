@@ -9,9 +9,12 @@
  * under the License.
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
+import jquery from 'jquery';
+
 (function () {
   'use strict';
   document.addEventListener("DOMContentLoaded", function(event) {
     console.log('<%= appId %> OpenMRS Open Web App Started.');
+    console.log('jQuery version: ' + jquery.fn.jquery);
   });
 }());
