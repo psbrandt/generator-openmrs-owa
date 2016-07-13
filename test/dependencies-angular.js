@@ -22,8 +22,9 @@ describe('Dependencies tests for AngularJS', function() {
   });
 
   it('should add selected AngularJS dependecies', function() {
-
     assert.fileContent([['package.json', /angular/]]);
+    assert.fileContent([['package.json', /angular-ui-router/]]);
+    assert.fileContent([['package.json', /openmrs-contrib-uicommons/]]);
   });
 
   it('should not add JQuery dependencies', function() {

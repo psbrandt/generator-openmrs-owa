@@ -20,12 +20,29 @@ describe('General tests', function() {
   });
 
   it('should generate correct dependencies', function() {
-    ['babel-loader', 'browser-sync', 'css-loader',
-      'rimraf', 'copy-webpack-plugin'].forEach(function(dep) {
+    ['babel-core',
+     'babel-loader',
+     'babel-preset-es2015',
+     'browser-sync',
+     'browser-sync-webpack-plugin',
+     'copy-webpack-plugin',
+     'css-loader',
+     'extract-text-webpack-plugin',
+     'file-loader',
+     'html-loader',
+     'html-webpack-plugin',
+     'raw-loader',
+     'rimraf',
+     'style-loader',
+     'url-loader',
+     'webpack',
+     'yargs',
+     'archiver',
+     'on-build-webpack'].forEach(function(dep) {
       assert.fileContent([['package.json', dep]]);
     });
   });
-  
+
   it('should correctly populate author', function() {
     ['package.json'].forEach(function(fileName) {
       assert.fileContent([[fileName, /omrsuser/]]);
@@ -33,8 +50,13 @@ describe('General tests', function() {
   });
 
   it('should generate expected npm scripts', function() {
-    ['clean', 'build', 'build:prod', 'build:deploy',
-      'watch', 'test'].forEach(function(task) {
+    ['clean',
+     'build',
+     'build:dev',
+     'build:prod',
+     'build:deploy',
+     'watch',
+     'test'].forEach(function(task) {
       assert.fileContent([['package.json', task]]);
     });
   });
