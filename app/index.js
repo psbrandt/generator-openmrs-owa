@@ -82,7 +82,7 @@ module.exports = generators.Base.extend({
         }
       }
     }, {
-      type: 'checkbox',
+      type: 'list',
       name: 'features',
       message: 'What libraries would you like to include?',
       choices: [{
@@ -227,25 +227,99 @@ module.exports = generators.Base.extend({
     },
 
     scripts: function() {
-      this.fs.copyTpl(
-        this.templatePath('scripts/index.js'),
-        this.destinationPath('app/js' + '/' + this.appId + '.js'),
-        {
-          appId: this.appId
-        }
-      );
+      // AngularJS
+      if (this.includeAngular) {
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/index.js'),
+          this.destinationPath('app/js' + '/' + this.appId + '.js'),
+          {
+            appId: this.appId
+          }
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/home/home.component.js'),
+          this.destinationPath('app/js/home/home.component.js')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/home/home.controller.js'),
+          this.destinationPath('app/js/home/home.controller.js')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/home/home.js'),
+          this.destinationPath('app/js/home/home.js')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/main/main.component.js'),
+          this.destinationPath('app/js/main/main.component.js')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/main/main.controller.js'),
+          this.destinationPath('app/js/main/main.controller.js')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/main/main.js'),
+          this.destinationPath('app/js/main/main.js'),
+          {
+            appName: this.appName
+          }
+        );
+      }
+
+      // jQuery
+      else {
+        this.fs.copyTpl(
+          this.templatePath('scripts/jquery/index.js'),
+          this.destinationPath('app/js' + '/' + this.appId + '.js'),
+          {
+            appId: this.appId
+          }
+        );
+      }
     },
 
     html: function() {
-      this.fs.copyTpl(
-        this.templatePath('index.html'),
-        this.destinationPath('app/index.html'),
-        {
-          appName: this.appName,
-          appDesc: this.appDesc,
-          appId: this.appId
-        }
-      );
+      //AngularJS
+      if (this.includeAngular) {
+        this.fs.copyTpl(
+          this.templatePath('html/angular/index.html'),
+          this.destinationPath('app/index.html'),
+          {
+            appName: this.appName,
+            appDesc: this.appDesc,
+            appId: this.appId
+          }
+        );
+        this.fs.copyTpl(
+          this.templatePath('html/angular/home/home.html'),
+          this.destinationPath('app/js/home/home.html'),
+          {
+            appName: this.appName,
+            appDesc: this.appDesc,
+            appId: this.appId
+          }
+        );
+        this.fs.copyTpl(
+          this.templatePath('html/angular/main/main.html'),
+          this.destinationPath('app/js/main/main.html'),
+          {
+            appName: this.appName,
+            appDesc: this.appDesc,
+            appId: this.appId
+          }
+        );
+      }
+      // jQuery
+      else {
+        this.fs.copyTpl(
+          this.templatePath('html/jquery/index.html'),
+          this.destinationPath('app/index.html'),
+          {
+            appName: this.appName,
+            appDesc: this.appDesc,
+            appId: this.appId
+          }
+        );
+      }
     },
 
     images: function() {
@@ -285,5 +359,5 @@ module.exports = generators.Base.extend({
       skipInstall: this.options['skip-install'],
       bower: false
     });
-  },
+  }
 });

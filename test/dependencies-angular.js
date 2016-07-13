@@ -14,19 +14,19 @@
 var helper = require('./helper');
 var assert = require('yeoman-assert');
 
-describe('Dependencies tests', function() {
+describe('Dependencies tests for AngularJS', function() {
   before(function(done) {
     helper.run({}, {
-      'features': ['includeJQuery']
+      'features': ['includeAngular']
     }, done);
   });
 
-  it('should add selected dependecies', function() {
+  it('should add selected AngularJS dependecies', function() {
 
-    assert.fileContent([['package.json', /jquery/]]);
+    assert.fileContent([['package.json', /angular/]]);
   });
 
-  it('should not add unselected dependencies', function() {
-    assert.noFileContent([['package.json', /angular/]]);
+  it('should not add JQuery dependencies', function() {
+    assert.noFileContent([['package.json', /jquery/]]);
   });
 });

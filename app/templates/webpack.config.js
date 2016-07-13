@@ -23,8 +23,9 @@ const DedupePlugin = webpack.optimize.DedupePlugin;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackOnBuildPlugin = require('on-build-webpack');
+<% if(includeAngular === true) { %> const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');<% } %>
 
 const nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
@@ -65,6 +66,7 @@ var config = getConfig();
 
 /** Minify for production */
 if (env === 'production') {
+<% if(includeAngular === true) { %> plugins.push(new ngAnnotatePlugin());<% } %>
 	  plugins.push(new UglifyPlugin({
 	    output: {
 	      comments: false,
@@ -79,11 +81,10 @@ if (env === 'production') {
 	  outputFile = `${outputFile}.min.js`;
 	  outputPath = `${__dirname}/dist/`;
 	  plugins.push(new WebpackOnBuildPlugin(function(stats){
-		  	//create zip file
-		  	var archiver = require('archiver');
-		  	var pjson = require('./package.json');
-			var output = fs.createWriteStream(THIS_APP_ID+"-v"+pjson.version+'.zip');
-			var archive = archiver('zip')
+      //create zip file
+      var archiver = require('archiver');
+			var output = fs.createWriteStream(THIS_APP_ID+'.zip');
+			var archive = archiver('zip');
 
 			output.on('close', function () {
 			    console.log('distributable has been zipped! size: '+archive.pointer());
@@ -99,12 +100,12 @@ if (env === 'production') {
 			]);
 			archive.finalize();
 		 }))
-	  
+
 } else if (env === 'deploy') {
 	  outputFile = `${outputFile}.js`;
 	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
 	  devtool = 'source-map';
-	  
+
 } else if (env === 'dev') {
 	  outputFile = `${outputFile}.js`;
 	  outputPath = `${__dirname}/dist/`;
@@ -133,6 +134,11 @@ plugins.push(new CopyWebpackPlugin([{
     to: 'img/omrs-button.png'
 }]));
 
+<% if(includeAngular === true) { %> plugins.push(new ngAnnotatePlugin({
+  add: true,
+  map: false
+}));<% } %>
+
 var webpackConfig = {
   quiet: false,
   entry: {
@@ -140,7 +146,7 @@ var webpackConfig = {
 	  css: `${__dirname}/app/css/<%= appId %>.css`,
 	  vendor : [
 	        	<% if(includeJQuery === true) { %> 'jquery' <% } %>
-	        	<% if(includeAngular === true) { %> 'angular'<% } %>
+	        	<% if(includeAngular === true) { %> 'angular', 'openmrs-contrib-uicommons'<% } %>
 	            ]
   },
   devtool: devtool,

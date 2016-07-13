@@ -14,28 +14,28 @@
 var helper = require('./helper');
 var assert = require('yeoman-assert');
 
-describe('General tests', function() {
+describe('Files check for AngularJS', function() {
   before(function(done) {
     helper.run({}, {}, done);
   });
 
-  it('should generate correct dependencies', function() {
-    ['babel-loader', 'browser-sync', 'css-loader',
-      'rimraf', 'copy-webpack-plugin'].forEach(function(dep) {
-      assert.fileContent([['package.json', dep]]);
-    });
-  });
-  
-  it('should correctly populate author', function() {
-    ['package.json'].forEach(function(fileName) {
-      assert.fileContent([[fileName, /omrsuser/]]);
-    });
-  });
-
-  it('should generate expected npm scripts', function() {
-    ['clean', 'build', 'build:prod', 'build:deploy',
-      'watch', 'test'].forEach(function(task) {
-      assert.fileContent([['package.json', task]]);
-    });
+  it('should create the expected files for AngularJS project', function() {
+    assert.file([
+      '.gitignore',
+      'app/css/omrsowa.css',
+      'app/img',
+      'app/img/omrs-button.png',
+      'app/img/openmrs-with-title-small.png',
+      'app/index.html',
+      'app/js',
+      'app/js/omrsowa.js',
+      'app/manifest.webapp',
+      'app/js/home',
+      'app/js/main',
+      'webpack.config.js',
+      'LICENSE',
+      'package.json',
+      'README.md'
+    ]);
   });
 });

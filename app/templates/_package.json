@@ -7,9 +7,16 @@
     "url": "<%= githubRepo %>"
   },
   "dependencies": {
-	<% if(includeJQuery === true) { %> "jquery": "^2.2.0" <% } %>
-	<% if(includeAngular === true) { %> "angular": "^1.5.3" <% } %>
-  },
+	<% if(includeJQuery === true) { %>
+  "jquery": "^2.2.0"
+  <% } %>
+	<% if(includeAngular === true) { %>
+  "angular": "^1.5.3",
+  "angular-ui-router": "^0.3.0",
+  "ng-annotate-webpack-plugin":"0.1.3",
+  "openmrs-contrib-uicommons": "^0.3.29"
+  <% } %>
+},
   "devDependencies": {
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
