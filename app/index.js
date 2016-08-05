@@ -17,7 +17,7 @@ var os = require('os');
 var fs = require('fs');
 var path = require('path');
 
-var OPENMRS_STANDALONE_APPDATA_DIR = 'openmrs-standalone-2.3.1/appdataowa';
+var OPENMRS_STANDALONE_APPDATA_DIR = 'openmrs-standalone-2.4/appdata';
 var DEFAULT_SDK_SERVER = 'openmrs/openmrs-platform';
 var DEFAULT_OWA_DIR = 'owa';
 var DEFAULT_ENTERPRISE_APPDATA_DIR = '/usr/share/tomcat7/.OpenMRS';
@@ -45,9 +45,9 @@ module.exports = generators.Base.extend({
   prompting: function() {
     this.getLocalDirDefault = function(answers) {
       if (answers.deployType === 'sdk') {
-        return os.homedir() + '/' + DEFAULT_SDK_SERVER;
+        return os.homedir() + '/' + DEFAULT_SDK_SERVER + '/' + DEFAULT_OWA_DIR;;
       } else if (answers.deployType === 'standalone') {
-        return os.homedir() + '/' + OPENMRS_STANDALONE_APPDATA_DIR;
+        return os.homedir() + '/' + OPENMRS_STANDALONE_APPDATA_DIR + '/' + DEFAULT_OWA_DIR;;
       } else {
         return DEFAULT_ENTERPRISE_APPDATA_DIR + '/' + DEFAULT_OWA_DIR; // There's some work to do here to create a sane default for Windows
       }
