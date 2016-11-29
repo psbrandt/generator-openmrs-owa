@@ -95,9 +95,9 @@ if (env === 'production') {
 			});
 
 			archive.pipe(output);
-			archive.bulk([
-			    { expand: true, cwd: 'dist/', src: ['**']}
-			]);
+
+      archive.directory(`${outputPath}`, '');
+
 			archive.finalize();
 		 }))
 
