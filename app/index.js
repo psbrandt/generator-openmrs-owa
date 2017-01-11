@@ -93,6 +93,10 @@ module.exports = generators.Base.extend({
         name: 'AngularJS',
         value: 'includeAngular',
         checked: true
+      }, {
+        name: 'ReactJS',
+        value: 'includeReact',
+        checked: false
       }]
     }, {
       type: 'list',
@@ -156,6 +160,7 @@ module.exports = generators.Base.extend({
       this.appDesc = answers.appDesc;
       this.includeJQuery = hasFeature('includeJQuery');
       this.includeAngular = hasFeature('includeAngular');
+      this.includeReact = hasFeature('includeReact');
       this.appEntryPoint = answers.appEntryPoint;
       this.localDeployDirectory = answers.localDeployDirectory;
       this.devName = answers.githubId;
@@ -174,6 +179,7 @@ module.exports = generators.Base.extend({
         {
           includeJQuery: this.includeJQuery,
           includeAngular: this.includeAngular,
+          includeReact: this.includeReact,
           date: (new Date).toISOString().split('T')[0],
           name: this.pkg.name,
           version: this.pkg.version,
@@ -204,6 +210,7 @@ module.exports = generators.Base.extend({
         {
           includeJQuery: this.includeJQuery,
           includeAngular: this.includeAngular,
+          includeReact: this.includeReact,
           appId: this.appName.toLowerCase().replace(/\s+/g, ""),
           appDesc: this.appDesc,
           devName: this.devName,
@@ -265,6 +272,25 @@ module.exports = generators.Base.extend({
         );
       }
 
+      // ReactJS
+      else if (this.includeReact) {
+        this.fs.copyTpl(
+          this.templatePath('scripts/react/index.jsx'),
+          this.destinationPath('app/js/' + this.appId + '.jsx'),
+          {
+            appId: this.appId
+          }
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/react/routes.jsx'),
+          this.destinationPath('app/js/routes.jsx')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/react/components/App.jsx'),
+          this.destinationPath('app/js/components/App.jsx')
+        );
+      }
+
       // jQuery
       else {
         this.fs.copyTpl(
@@ -301,6 +327,18 @@ module.exports = generators.Base.extend({
         this.fs.copyTpl(
           this.templatePath('html/angular/main/main.html'),
           this.destinationPath('app/js/main/main.html'),
+          {
+            appName: this.appName,
+            appDesc: this.appDesc,
+            appId: this.appId
+          }
+        );
+      }
+      // ReactJS
+      else if (this.includeReact) {
+        this.fs.copyTpl(
+          this.templatePath('html/react/index.html'),
+          this.destinationPath('app/index.html'),
           {
             appName: this.appName,
             appDesc: this.appDesc,
