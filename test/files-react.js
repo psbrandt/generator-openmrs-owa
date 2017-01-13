@@ -15,31 +15,68 @@ var helper = require('./helper');
 var assert = require('yeoman-assert');
 
 describe('Files check for ReactJS', function() {
-  before(function(done) {
-    helper.run({}, {
-      'features': ['includeReact']
-    }, done);
+
+  const reactFiles = [
+    '.gitignore',
+    'app/css/omrsowa.css',
+    'app/img/omrs-button.png',
+    'app/img/openmrs-with-title-small.png',
+    'app/index.html',
+    'app/manifest.webapp',
+    'app/js/omrsowa.jsx',
+    'app/js/routes.jsx',
+    'app/js/components/App.jsx',
+    'webpack.config.js',
+    'package.json',
+    'LICENSE',
+    'README.md'
+  ];
+
+  describe('ReactJS alone', function() {
+    before(function (done) {
+      helper.run({}, {
+        'features': ['includeReact']
+      }, done);
+    });
+
+    it('should create the expected files for ReactJS project', function () {
+      assert.file(reactFiles);
+    });
+
+    it('should have correct app/index.html file', function () {
+      assert.fileContent('app/index.html', '<div id="app">If you see this text, look for an error in your JavaScript Console.</div>');
+    });
+
+    it('should have correct app/js/omrsowa.jsx file', function () {
+      assert.noFileContent('app/js/omrsowa.jsx', '<Provider store={store}>');
+    });
+
+    it('should have correct app/js/routes.jsx file', function () {
+      assert.fileContent('app/js/routes.jsx', 'export default () => {');
+    });
   });
 
-  it('should create the expected files for ReactJS project', function() {
-    assert.file([
-                  '.gitignore',
-                  'app/css/omrsowa.css',
-                  'app/img/omrs-button.png',
-                  'app/img/openmrs-with-title-small.png',
-                  'app/index.html',
-                  'app/manifest.webapp',
-                  'app/js/omrsowa.jsx',
-                  'app/js/routes.jsx',
-                  'app/js/components/App.jsx',
-                  'webpack.config.js',
-                  'package.json',
-                  'LICENSE',
-                  'README.md'
-                ]);
-  });
+  describe('ReactJS with Redux', function() {
+    before(function (done) {
+      helper.run({}, {
+        'features': ['includeReact', 'includeRedux']
+      }, done);
+    });
 
-  it('should have correct app/index.html file', function() {
-    assert.fileContent('app/index.html', '<div id="app">If you see this text, look for an error in your JavaScript Console.</div>');
-  })
+    it('should create the expected files for ReactJS+Redux project', function () {
+      assert.file([ ...reactFiles, 'app/js/redux-store.jsx', 'app/js/reducers.js']);
+    });
+
+    it('should have correct app/index.html file', function () {
+      assert.fileContent('app/index.html', '<div id="app">If you see this text, look for an error in your JavaScript Console.</div>');
+    });
+
+    it('should have correct app/js/omrsowa.jsx file', function () {
+      assert.fileContent('app/js/omrsowa.jsx', '<Provider store={store}>');
+    });
+
+    it('should have correct app/js/routes.jsx file', function () {
+      assert.fileContent('app/js/routes.jsx', 'export default (store) => {');
+    });
+  });
 });

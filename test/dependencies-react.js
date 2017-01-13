@@ -15,20 +15,47 @@ var helper = require('./helper');
 var assert = require('yeoman-assert');
 
 describe('Dependencies tests for ReactJS', function() {
-  before(function(done) {
-    helper.run({}, {
-      'features': ['includeReact']
-    }, done);
+
+  describe('ReactJS alone', function() {
+    before(function(done) {
+      helper.run({}, {
+        'features': ['includeReact']
+      }, done);
+    });
+
+    it('should add selected ReactJS dependecies', function() {
+      assert.fileContent([['package.json', /react/]]);
+      assert.fileContent([['package.json', /react-dom/]]);
+      assert.fileContent([['package.json', /react-router/]]);
+      assert.fileContent([['package.json', /babel-preset-react/]]);
+    });
+
+    it('should not add JQuery dependencies', function() {
+      assert.noFileContent([['package.json', /jquery/]]);
+    });
   });
 
-  it('should add selected ReactJS dependecies', function() {
-    assert.fileContent([['package.json', /react/]]);
-    assert.fileContent([['package.json', /react-dom/]]);
-    assert.fileContent([['package.json', /react-router/]]);
-    assert.fileContent([['package.json', /babel-preset-react/]]);
+  describe('ReactJS with Redux', function() {
+    before(function(done) {
+      helper.run({}, {
+        'features': ['includeReact', 'includeRedux']
+      }, done);
+    });
+
+    it('should add selected ReactJS and Redux dependecies', function() {
+      assert.fileContent([['package.json', /react/]]);
+      assert.fileContent([['package.json', /react-dom/]]);
+      assert.fileContent([['package.json', /react-router/]]);
+      assert.fileContent([['package.json', /babel-preset-react/]]);
+      assert.fileContent([['package.json', /redux/]]);
+      assert.fileContent([['package.json', /react-redux/]]);
+      assert.fileContent([['package.json', /redux-thunk/]]);
+      assert.fileContent([['package.json', /redux-promise-middleware/]]);
+    });
+
+    it('should not add JQuery dependencies', function() {
+      assert.noFileContent([['package.json', /jquery/]]);
+    });
   });
 
-  it('should not add JQuery dependencies', function() {
-    assert.noFileContent([['package.json', /jquery/]]);
-  });
 });

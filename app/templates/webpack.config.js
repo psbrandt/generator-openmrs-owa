@@ -147,7 +147,12 @@ var webpackConfig = {
 	  vendor : [
 	        	<% if(includeJQuery === true) { %> 'jquery' <% } %>
 	        	<% if(includeAngular === true) { %> 'angular', 'openmrs-contrib-uicommons'<% } %>
-            <% if(includeReact === true) { %> 'react', 'react-router'<% } %>
+                <% if(includeReact === true) { %>
+                    'react', 'react-router'
+                    <% if(includeRedux === true) { %>
+                        , 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
+                    <% } %>
+                <% } %>
 	            ]
   },
   devtool: devtool,
