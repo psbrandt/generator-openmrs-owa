@@ -93,6 +93,14 @@ module.exports = generators.Base.extend({
         name: 'AngularJS',
         value: 'includeAngular',
         checked: true
+      }, {
+        name: 'ReactJS',
+        value: 'includeReact',
+        checked: false
+      }, {
+        name: 'ReactJS + Redux',
+        value: 'includeReact includeRedux',
+        checked: false
       }]
     }, {
       type: 'list',
@@ -156,6 +164,8 @@ module.exports = generators.Base.extend({
       this.appDesc = answers.appDesc;
       this.includeJQuery = hasFeature('includeJQuery');
       this.includeAngular = hasFeature('includeAngular');
+      this.includeReact = hasFeature('includeReact');
+      this.includeRedux = this.includeReact && hasFeature('includeRedux');
       this.appEntryPoint = answers.appEntryPoint;
       this.localDeployDirectory = answers.localDeployDirectory;
       this.devName = answers.githubId;
@@ -174,6 +184,8 @@ module.exports = generators.Base.extend({
         {
           includeJQuery: this.includeJQuery,
           includeAngular: this.includeAngular,
+          includeReact: this.includeReact,
+          includeRedux: this.includeRedux,
           date: (new Date).toISOString().split('T')[0],
           name: this.pkg.name,
           version: this.pkg.version,
@@ -204,6 +216,8 @@ module.exports = generators.Base.extend({
         {
           includeJQuery: this.includeJQuery,
           includeAngular: this.includeAngular,
+          includeReact: this.includeReact,
+          includeRedux: this.includeRedux,
           appId: this.appName.toLowerCase().replace(/\s+/g, ""),
           appDesc: this.appDesc,
           devName: this.devName,
@@ -265,6 +279,36 @@ module.exports = generators.Base.extend({
         );
       }
 
+      // ReactJS
+      else if (this.includeReact) {
+        this.fs.copyTpl(
+          this.templatePath('scripts/react/index' + (this.includeRedux ? '.withRedux.jsx' : '.jsx')),
+          this.destinationPath('app/js/' + this.appId + '.jsx'),
+          {
+            appId: this.appId
+          }
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/react/routes' + (this.includeRedux ? '.withRedux.jsx' : '.jsx')),
+          this.destinationPath('app/js/routes.jsx')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/react/components/App.jsx'),
+          this.destinationPath('app/js/components/App.jsx')
+        );
+
+        if (this.includeRedux) {
+          this.fs.copyTpl(
+            this.templatePath('scripts/react/redux-store.withRedux.jsx'),
+            this.destinationPath('app/js/redux-store.jsx')
+          );
+          this.fs.copyTpl(
+            this.templatePath('scripts/react/reducers.withRedux.js'),
+            this.destinationPath('app/js/reducers.js')
+          );
+        }
+      }
+
       // jQuery
       else {
         this.fs.copyTpl(
@@ -307,6 +351,19 @@ module.exports = generators.Base.extend({
             appId: this.appId
           }
         );
+      }
+      // ReactJS
+      else if (this.includeReact) {
+        this.fs.copyTpl(
+          this.templatePath('html/react/index.html'),
+          this.destinationPath('app/index.html'),
+          {
+            appName: this.appName,
+            appDesc: this.appDesc,
+            appId: this.appId
+          }
+        );
+        // TODO
       }
       // jQuery
       else {

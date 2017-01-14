@@ -142,11 +142,17 @@ plugins.push(new CopyWebpackPlugin([{
 var webpackConfig = {
   quiet: false,
   entry: {
-	  app : `${__dirname}/app/js/<%= appId %>.js`,
+	  app : `${__dirname}/app/js/<%= appId %>`,
 	  css: `${__dirname}/app/css/<%= appId %>.css`,
 	  vendor : [
 	        	<% if(includeJQuery === true) { %> 'jquery' <% } %>
 	        	<% if(includeAngular === true) { %> 'angular', 'openmrs-contrib-uicommons'<% } %>
+                <% if(includeReact === true) { %>
+                    'react', 'react-router'
+                    <% if(includeRedux === true) { %>
+                        , 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
+                    <% } %>
+                <% } %>
 	            ]
   },
   devtool: devtool,
@@ -161,7 +167,7 @@ var webpackConfig = {
 	    loader: 'babel-loader',
 	    exclude: /node_modules/,
 	    query: {
-	        presets: ['es2015'],
+	        presets: [ 'es2015'<% if(includeReact === true) { %>, 'react'<% } %> ],
 	        cacheDirectory : true
 	    }
     },{
@@ -177,7 +183,7 @@ var webpackConfig = {
   },
   resolve: {
     root: path.resolve('./src'),
-    extensions: ['', '.js'],
+    extensions: ['', '.js'<% if(includeReact === true) {%>, '.jsx'<% } %>],
   },
   plugins,
   externals: nodeModules,
