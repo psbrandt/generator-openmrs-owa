@@ -64,7 +64,8 @@ describe('Files check for ReactJS', function() {
     });
 
     it('should create the expected files for ReactJS+Redux project', function () {
-      assert.file([ ...reactFiles, 'app/js/redux-store.jsx', 'app/js/reducers.js']);
+      assert.file(reactFiles);
+      assert.file(['app/js/redux-store.jsx', 'app/js/reducers.js']);
     });
 
     it('should have correct app/index.html file', function () {
