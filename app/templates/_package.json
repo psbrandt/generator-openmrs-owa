@@ -6,6 +6,12 @@
     "type": "git",
     "url": "<%= githubRepo %>"
   },
+  <% if(includeAngular === true) { %>
+  "engines": {
+    "npm": "^4.0.5",
+    "node": "^7.4.0"
+  },
+  <% } %>
   "dependencies": {
 	<% if(includeJQuery === true) { %>
   "jquery": "^2.2.0"
