@@ -16,6 +16,7 @@ const path = require('path');
 const fs = require('fs');
 const env = require('yargs').argv.mode;
 const target = require('yargs').argv.target;
+const targetPort = require('yargs').argv.targetPort;
 
 const UglifyPlugin = webpack.optimize.UglifyJsPlugin;
 const CommonsChunkPlugin =  webpack.optimize.CommonsChunkPlugin;
@@ -63,6 +64,18 @@ var getConfig = function () {
 	  };
 	}
 var config = getConfig();
+
+var resolveBrowserSyncTarget = function () {
+  if (targetPort != null && targetPort != 'null') {
+    return config.APP_ENTRY_POINT.substr(0, 'http://localhost:'.length)
+      + targetPort
+      + config.APP_ENTRY_POINT.substr('http://localhost:'.length + targetPort.toString().length, config.APP_ENTRY_POINT.length);
+  }
+  else {
+    return config.APP_ENTRY_POINT
+  }
+};
+var browserSyncTarget = resolveBrowserSyncTarget();
 
 /** Minify for production */
 if (env === 'production') {
@@ -114,7 +127,7 @@ if (env === 'production') {
 
 plugins.push(new BrowserSyncPlugin({
     proxy: {
-    	target : config.APP_ENTRY_POINT
+    	target : browserSyncTarget
     }
 }));
 
