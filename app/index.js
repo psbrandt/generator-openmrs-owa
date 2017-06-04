@@ -45,9 +45,9 @@ module.exports = generators.Base.extend({
   prompting: function() {
     this.getLocalDirDefault = function(answers) {
       if (answers.deployType === 'sdk') {
-        return os.homedir() + '/' + DEFAULT_SDK_SERVER + '/' + DEFAULT_OWA_DIR;;
+        return os.homedir().replace(/\\/g,'/') + '/' + DEFAULT_SDK_SERVER + '/' + DEFAULT_OWA_DIR;;
       } else if (answers.deployType === 'standalone') {
-        return os.homedir() + '/' + OPENMRS_STANDALONE_APPDATA_DIR + '/' + DEFAULT_OWA_DIR;;
+        return os.homedir().replace(/\\/g,'/') + '/' + OPENMRS_STANDALONE_APPDATA_DIR + '/' + DEFAULT_OWA_DIR;;
       } else {
         return DEFAULT_ENTERPRISE_APPDATA_DIR + '/' + DEFAULT_OWA_DIR; // There's some work to do here to create a sane default for Windows
       }
@@ -191,7 +191,7 @@ module.exports = generators.Base.extend({
           version: this.pkg.version,
           appId: this.appId,
           appEntryPoint: this.appEntryPoint,
-          localDeployDirectory: this.localDeployDirectory.endsWith(path.sep) ? this.localDeployDirectory : this.localDeployDirectory + path.sep
+          localDeployDirectory: this.localDeployDirectory
         }
       );
     },
