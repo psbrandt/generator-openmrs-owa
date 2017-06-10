@@ -163,7 +163,7 @@ var webpackConfig = {
 	  css: `${__dirname}/app/css/<%= appId %>.css`,
 	  vendor : [
 	        	<% if(includeJQuery === true) { %> 'jquery' <% } %>
-	        	<% if(includeAngular === true) { %> 'angular', 'openmrs-contrib-uicommons'<% } %>
+	        	<% if(includeAngular === true) { %> 'angular', 'openmrs-contrib-uicommons', 'angular-animate' <% } %>
                 <% if(includeReact === true) { %>
                     'react', 'react-router'
                     <% if(includeRedux === true) { %>
