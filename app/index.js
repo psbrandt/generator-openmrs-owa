@@ -274,7 +274,8 @@ module.exports = generators.Base.extend({
           this.templatePath('scripts/angular/main/main.js'),
           this.destinationPath('app/js/main/main.js'),
           {
-            appName: this.appName
+            appName: this.appName.toLowerCase().replace( /['"]/g, '' ).replace( /\W+/g, ' ' ).replace( / (.)/g, function($1) { 
+              return $1.toUpperCase(); }).replace( / /g, '' ).replace( /(\b\w)/g, function(m) { return m.toUpperCase(); })
           }
         );
       }
