@@ -191,7 +191,7 @@ module.exports = generators.Base.extend({
           version: this.pkg.version,
           appId: this.appId,
           appEntryPoint: this.appEntryPoint,
-          localDeployDirectory: this.localDeployDirectory
+          localDeployDirectory: this.localDeployDirectory.endsWith('/') ? this.localDeployDirectory : this.localDeployDirectory + '/'
         }
       );
     },
