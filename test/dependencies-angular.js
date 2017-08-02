@@ -25,6 +25,7 @@ describe('Dependencies tests for AngularJS', function() {
     assert.fileContent([['package.json', /angular/]]);
     assert.fileContent([['package.json', /angular-ui-router/]]);
     assert.fileContent([['package.json', /openmrs-contrib-uicommons/]]);
+    assert.fileContent([['package.json', /angular-animate/]]);
   });
 
   it('should not add JQuery dependencies', function() {

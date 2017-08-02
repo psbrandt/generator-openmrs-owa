@@ -135,7 +135,10 @@ plugins.push(new BrowserSyncPlugin({
     }
 }));
 
-plugins.push(new CommonsChunkPlugin("vendor", vendorOutputFile));
+plugins.push(new CommonsChunkPlugin({
+    name: 'vendor', 
+    filename: vendorOutputFile
+}));
 
 plugins.push(new HtmlWebpackPlugin({
     template: './app/index.html',

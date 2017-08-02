@@ -251,12 +251,20 @@ module.exports = generators.Base.extend({
           }
         );
         this.fs.copyTpl(
-          this.templatePath('scripts/angular/home/home.component.js'),
-          this.destinationPath('app/js/home/home.component.js')
+          this.templatePath('karma.conf.js'),
+          this.destinationPath('karma.conf.js')
         );
         this.fs.copyTpl(
-          this.templatePath('scripts/angular/home/home.controller.js'),
-          this.destinationPath('app/js/home/home.controller.js')
+          this.templatePath('test/*.js'),
+          this.destinationPath('test/')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/home/components/*.js'),
+          this.destinationPath('app/js/home/components/')
+        );
+        this.fs.copyTpl(
+          this.templatePath('scripts/angular/home/controllers/*.js'),
+          this.destinationPath('app/js/home/controllers/')
         );
         this.fs.copyTpl(
           this.templatePath('scripts/angular/home/home.js'),
@@ -335,8 +343,8 @@ module.exports = generators.Base.extend({
           }
         );
         this.fs.copyTpl(
-          this.templatePath('html/angular/home/home.html'),
-          this.destinationPath('app/js/home/home.html'),
+          this.templatePath('html/angular/home/*.html'),
+          this.destinationPath('app/js/home/'),
           {
             appName: this.appName,
             appDesc: this.appDesc,
@@ -388,6 +396,10 @@ module.exports = generators.Base.extend({
       this.fs.copy(
         this.templatePath('img/openmrs-with-title-small.png'),
         this.destinationPath('app/img/openmrs-with-title-small.png')
+      );
+      this.fs.copy(
+        this.templatePath('img/loading.gif'),
+        this.destinationPath('app/img/loading.gif')
       );
     },
 

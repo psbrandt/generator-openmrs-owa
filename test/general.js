@@ -27,6 +27,7 @@ describe('General tests', function() {
      'browser-sync-webpack-plugin',
      'copy-webpack-plugin',
      'css-loader',
+     'eslint',
      'extract-text-webpack-plugin',
      'file-loader',
      'html-loader',

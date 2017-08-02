@@ -55,8 +55,6 @@ header .logo img {
     -khtml-border-radius: 5px;
     border-radius: 5px;
     min-height: 500px;
-    display: table-cell;
-    display: flex;
     justify-content: center;
 }
 
