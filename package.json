@@ -11,7 +11,7 @@
     "npm": ">=2.14.2"
   },
   "scripts": {
-    "test": "mocha --reporter spec --timeout 3000"
+    "test": "mocha --reporter spec --timeout 4000"
   },
   "files": [
     "app"
