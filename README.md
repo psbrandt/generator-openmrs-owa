@@ -2,8 +2,8 @@
 
 # OpenMRS Open Web App Generator
 
-[![Build Status](https://img.shields.io/travis/psbrandt/generator-openmrs-owa.svg?style=flat-square)](http://travis-ci.org/psbrandt/generator-openmrs-owa)
-[![Downloads](https://img.shields.io/npm/dt/generator-openmrs-owa.svg?style=flat-square)](https://www.npmjs.com/package/generator-openmrs-owa)
+[![Build Status](https://img.shields.io/travis/openmrs/generator-openmrs-owa.svg?style=flat-square)](http://travis-ci.org/openmrs/generator-openmrs-owa)
+[![Downloads](https://img.shields.io/npm/dt/@openmrs/generator-openmrs-owa.svg?style=flat-square)](https://www.npmjs.com/package/@openmrs/generator-openmrs-owa)
 
 > [Yeoman](http://yeoman.io) generator that scaffolds an [OpenMRS Open Web App](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module)
 
@@ -22,7 +22,7 @@ The following features are currently supported:
 ## Getting Started
 
  - Install dependencies: `npm install --global yo`
- - Install the generator: `npm install --global generator-openmrs-owa`
+ - Install the generator: `npm install --global @openmrs/generator-openmrs-owa`
  - Create directory for your app: `mkdir openmrs-owa-myapp && cd $_`
  - Run `yo openmrs-owa` to scaffold the Open Web App
  - Run `npm run build:prod` to build distributable zip file
