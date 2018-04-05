@@ -1,5 +1,5 @@
 {
-  "name": "generator-openmrs-owa",
+  "name": "@openmrs/generator-openmrs-owa",
   "version": "0.6.0",
   "description": "Scaffold OpenMRS Open Web Apps.",
   "license": "MPL-2.0",
