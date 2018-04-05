@@ -1,6 +1,6 @@
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
-# OpenMRS Open Web App Generator
+# !! Packaged Moved Here: https://github.com/openmrs/generator-openmrs-owa
 
 [![Build Status](https://img.shields.io/travis/psbrandt/generator-openmrs-owa.svg?style=flat-square)](http://travis-ci.org/psbrandt/generator-openmrs-owa)
 [![Downloads](https://img.shields.io/npm/dt/generator-openmrs-owa.svg?style=flat-square)](https://www.npmjs.com/package/generator-openmrs-owa)
