@@ -116,7 +116,7 @@ if (env === 'production') {
 } else if (env === 'deploy') {
 	  outputFile = `${outputFile}.js`;
 	  vendorOutputFile = "vendor.bundle.js";
-	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
+	  outputPath = `${config.LOCAL_OWA_FOLDER}${config.LOCAL_OWA_FOLDER.slice(-1) != '/' ? '/' : ''}${THIS_APP_ID}`;
 	  devtool = 'source-map';
 
 } else if (env === 'dev') {
@@ -133,7 +133,7 @@ plugins.push(new BrowserSyncPlugin({
 }));
 
 plugins.push(new CommonsChunkPlugin({
-    name: 'vendor', 
+    name: 'vendor',
     filename: vendorOutputFile
 }));
 
