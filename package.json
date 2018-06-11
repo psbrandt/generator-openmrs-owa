@@ -1,6 +1,6 @@
 {
   "name": "@openmrs/generator-openmrs-owa",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Scaffold OpenMRS Open Web Apps.",
   "license": "MPL-2.0",
   "repository": "http://github.com/psbrandt/generator-openmrs-owa",
